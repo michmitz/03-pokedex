@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header.js';
 import './App.css';
 import PokemonList from './PokemonList.js';
+import SearchBar from './SearchBar.js';
 import request from 'superagent';
 
 
@@ -28,10 +29,7 @@ class App extends React.Component {
   return (
     <div className="App">
       <Header/>
-        <div className="input-div">
-          <input onChange={this.handleChange}/>
-          <button onClick={this.handleClick}>Search</button>
-        </div>
+        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange}/>
         <PokemonList pokeState={this.state.pokeState}/>
     </div>
     );
