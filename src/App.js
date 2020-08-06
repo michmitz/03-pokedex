@@ -9,11 +9,12 @@ import request from 'superagent';
 class App extends React.Component {
   state = {
     search: '',
-    pokeState: []
+    pokeState: [],
+    searchBy: 'pokemon'
   }
 
   handleClick = async () => {
-    const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?perPage=1000&pokemon=${this.state.search}`)
+    const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?perPage=1000&${this.state.searchBy}=${this.state.search}`)
 
     this.setState({
       pokeState: data.body.results
@@ -25,11 +26,15 @@ class App extends React.Component {
     this.setState({ search: e.target.value })
   }
 
+  handleSearchBy = (e) => {
+    this.setState({ searchBy: e.target.value })
+  }
+
   render() {
   return (
     <div className="App">
       <Header/>
-        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange}/>
+        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy}/>
         <PokemonList pokeState={this.state.pokeState}/>
     </div>
     );
