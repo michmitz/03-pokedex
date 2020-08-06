@@ -1,44 +1,43 @@
-import React from 'react';
-import Header from './Header.js';
+import React, { Component } from 'react'
+import {
+    BrowserRouter as Router, 
+    Route, 
+    Switch,
+    Link,
+} from 'react-router-dom';
+import SearchPage from './SearchPage/SearchPage.js';
+import DetailPage from './DetailPage/DetailPage.js';
 import './App.css';
-import PokemonList from './PokemonList.js';
-import SearchBar from './SearchBar.js';
-import request from 'superagent';
 
-
-class App extends React.Component {
-  state = {
-    search: '',
-    pokeState: [],
-    searchBy: 'pokemon'
-  }
-
-  handleClick = async () => {
-    const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?perPage=1000&${this.state.searchBy}=${this.state.search}`)
-
-    this.setState({
-      pokeState: data.body.results
-    })
-    console.log(this.state.pokeState)
-  }
-
-  handleChange = (e) => {
-    this.setState({ search: e.target.value })
-  }
-
-  handleSearchBy = (e) => {
-    this.setState({ searchBy: e.target.value })
-  }
-
-  render() {
-  return (
-    <div className="App">
-      <Header/>
-        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy}/>
-        <PokemonList pokeState={this.state.pokeState}/>
-    </div>
-    );
-  }
+export default class App extends Component {
+    render() {
+        return (
+          <>
+          <div className={'box'}>
+                <Router>
+                    <header>
+                      <li>
+                        <Link to="/detail">Detail</Link>
+                      </li>
+                      <li>
+                        <Link to="/">Home</Link>
+                      </li>
+                    </header>
+                    <Switch>
+                        <Route 
+                            path="/" 
+                            exact
+                            render={(routerProps) => <SearchPage {...routerProps} />} 
+                        />
+                        <Route 
+                            path="/detail/:myPokemonId" 
+                            exact
+                            render={(routerProps) => <DetailPage {...routerProps} />} 
+                        />
+                    </Switch>
+                </Router>
+            </div>
+            </>
+        )
+    }
 }
-
-export default App;
