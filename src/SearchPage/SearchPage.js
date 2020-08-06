@@ -11,15 +11,22 @@ class SearchPage extends React.Component {
   state = {
     search: '',
     pokeState: [],
-    searchBy: 'pokemon'
+    searchBy: 'pokemon',
+    isLoading: false
   }
 
   handleClick = async () => {
+    this.setState({
+      isLoading: true 
+    })
+
     const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?perPage=1000&${this.state.searchBy}=${this.state.search}`)
 
     this.setState({
-      pokeState: data.body.results
+      pokeState: data.body.results,
+      isLoading: false
     })
+
     console.log(this.state.pokeState)
   }
 
@@ -36,7 +43,12 @@ class SearchPage extends React.Component {
     <div className="App">
       <Header/>
         <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy}/>
+        
+        {
+        this.state.isLoading ? <p>Loading</p> :
         <PokemonList pokeState={this.state.pokeState}/>
+        }
+
     </div>
     );
   }
