@@ -6,7 +6,7 @@ export default class PokemonItem extends Component {
         return (
             <div className="image-container">
                 <p className="image-title">{this.props.pokemon}</p>
-                <img src={this.props.url_image} alt=''/>
+                <img src={this.props.image} alt=''/>
             </div>
         )
     }
