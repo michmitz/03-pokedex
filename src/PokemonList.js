@@ -8,9 +8,15 @@ export default class PokemonList extends Component {
                 {
                     this.props.pokeState.length > 0 && 
                     <div>
+                        {
+                        this.props.currentPage !== 1 &&
                         <button onClick={this.props.handlePrevClick}>Prev</button>
+                        }
+                        {   
+                        this.props.currentPage !== this.props.totalPages &&
                         <button onClick={this.props.handleNextClick}>Next</button>
-                        {this.props.currentPage}
+                        }
+                        {this.props.currentPage} of {this.props.totalPages}
                     </div>
                 }
                 

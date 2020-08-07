@@ -12,7 +12,8 @@ class SearchPage extends React.Component {
     pokeState: [],
     searchBy: 'pokemon',
     isLoading: false,
-    currentPage: 1
+    currentPage: 1,
+    totalPages: 1
   }
 
   componentDidMount = async () => {
@@ -44,6 +45,7 @@ class SearchPage extends React.Component {
 
     this.setState({
       pokeState: data.body.results,
+      totalPages: Math.ceil(data.body.count / 20),
       isLoading: false
     })
 
@@ -91,7 +93,7 @@ class SearchPage extends React.Component {
         
         {
         this.state.isLoading ? <p>Loading</p> :
-        <PokemonList handleNextClick={this.handleNextClick} handlePrevClick={this.handlePrevClick} currentPage={this.state.currentPage} pokeState={this.state.pokeState}/>
+        <PokemonList handleNextClick={this.handleNextClick} handlePrevClick={this.handlePrevClick} currentPage={this.state.currentPage} pokeState={this.state.pokeState} totalPages={this.state.totalPages}/>
         }
 
     </div>
