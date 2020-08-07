@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import request from 'superagent';
+import request from 'superagent'
+import '../App.css'
+import './DetailPage.css'
 
 export default class DetailPage extends Component {
     state = { pokemon: null }
@@ -9,7 +11,6 @@ export default class DetailPage extends Component {
 
         const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${name}`);
 
-        console.log(data)
         const pokemon = data.body.results[0];
 
         this.setState({ pokemon: pokemon })
@@ -19,7 +20,7 @@ export default class DetailPage extends Component {
         const { pokemon } = this.state;
 
         return (
-            <div>
+            <div className='pokemon-details-div'>
                 {
                     pokemon 
                         ? <div>

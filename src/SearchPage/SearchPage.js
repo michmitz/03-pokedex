@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../Header.js';
 import '../App.css';
 import './SearchPage.css';
 import PokemonList from '../PokemonList.js';
@@ -40,8 +39,7 @@ class SearchPage extends React.Component {
 
   render() {
   return (
-    <div className="App">
-      <Header/>
+    <div className="search-container">
         <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy}/>
         
         {
