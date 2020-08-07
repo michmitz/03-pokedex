@@ -15,7 +15,7 @@ class SearchPage extends React.Component {
     currentPage: 1
   }
 
-  handleClick = async () => {
+  makeRequest = async () => {
     this.setState({
       isLoading: true 
     })
@@ -28,14 +28,23 @@ class SearchPage extends React.Component {
     })
 
     console.log(this.state.pokeState)
+
   }
 
-  handleNextClick = () => {
-    this.setState({ currentPage: this.state.currentPage + 1 })
+  handleClick = async () => {
+    await this.makeRequest()
   }
 
-  handlePrevClick = () => {
-    this.setState({ prevPage: this.state.prevPage - 1 })
+  handleNextClick = async () => {
+    await this.setState({ currentPage: this.state.currentPage + 1 })
+
+    await this.makeRequest()
+  }
+
+  handlePrevClick = async () => {
+    await this.setState({ currentPage: this.state.currentPage - 1 })
+
+    await this.makeRequest()
   }
 
   handleChange = (e) => {
