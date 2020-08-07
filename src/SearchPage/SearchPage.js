@@ -87,13 +87,22 @@ class SearchPage extends React.Component {
   }
 
   render() {
+    const {
+      isLoading,
+      pokeState,
+      currentPage,
+      totalPages,
+      search,
+      searchBy
+    } = this.state;
+
   return (
     <div className="search-container">
-        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy} search={this.state.search} searchBy={this.state.searchBy}/>
+        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy} search={search} searchBy={searchBy}/>
         
         {
-        this.state.isLoading ? <p>Loading</p> :
-        <PokemonList handleNextClick={this.handleNextClick} handlePrevClick={this.handlePrevClick} currentPage={this.state.currentPage} pokeState={this.state.pokeState} totalPages={this.state.totalPages}/>
+        isLoading ? <p>Loading</p> :
+        <PokemonList handleNextClick={this.handleNextClick} handlePrevClick={this.handlePrevClick} currentPage={currentPage} pokeState={pokeState} totalPages={totalPages}/>
         }
 
     </div>

@@ -3,20 +3,28 @@ import PokemonItem from './PokemonItem.js'
 
 export default class PokemonList extends Component {
     render() {
+        const {
+            pokeState,
+            currentPage,
+            handlePrevClick,
+            handleNextClick,
+            totalPages
+        } = this.props;
+        
         return (
             <div className="pokemon-list">
                 {
-                    this.props.pokeState.length > 0 && 
+                    pokeState.length > 0 && 
                     <div>
                         {
-                        this.props.currentPage !== 1 &&
-                        <button onClick={this.props.handlePrevClick}>Prev</button>
+                        currentPage !== 1 &&
+                        <button onClick={handlePrevClick}>Prev</button>
                         }
                         {   
-                        this.props.currentPage !== this.props.totalPages &&
-                        <button onClick={this.props.handleNextClick}>Next</button>
+                        currentPage !== totalPages &&
+                        <button onClick={handleNextClick}>Next</button>
                         }
-                        {this.props.currentPage} of {this.props.totalPages}
+                        {currentPage} of {totalPages}
                     </div>
                 }
                 
