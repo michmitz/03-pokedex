@@ -11,7 +11,8 @@ class SearchPage extends React.Component {
     search: '',
     pokeState: [],
     searchBy: 'pokemon',
-    isLoading: false
+    isLoading: false,
+    currentPage: 1
   }
 
   handleClick = async () => {
@@ -19,7 +20,7 @@ class SearchPage extends React.Component {
       isLoading: true 
     })
 
-    const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?perPage=1000&${this.state.searchBy}=${this.state.search}`)
+    const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?page=${this.state.currentPage}&perPage=20&${this.state.searchBy}=${this.state.search}`)
 
     this.setState({
       pokeState: data.body.results,
@@ -27,6 +28,14 @@ class SearchPage extends React.Component {
     })
 
     console.log(this.state.pokeState)
+  }
+
+  handleNextClick = () => {
+    this.setState({ currentPage: this.state.currentPage + 1 })
+  }
+
+  handlePrevClick = () => {
+    this.setState({ prevPage: this.state.prevPage - 1 })
   }
 
   handleChange = (e) => {
@@ -44,7 +53,7 @@ class SearchPage extends React.Component {
         
         {
         this.state.isLoading ? <p>Loading</p> :
-        <PokemonList pokeState={this.state.pokeState}/>
+        <PokemonList handleNextClick={this.handleNextClick} handlePrevClick={this.handlePrevClick} currentPage={this.state.currentPage} pokeState={this.state.pokeState}/>
         }
 
     </div>
