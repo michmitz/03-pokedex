@@ -28,12 +28,6 @@ li {
   color: #61dafb;
 }
 
-.search-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 input {
   margin-top: 100px;
@@ -55,7 +49,8 @@ button {
   justify-content: space-between;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-
+  margin-left: 50px;
+  
 }
 
 img {
@@ -65,5 +60,26 @@ img {
 }
 
 .search-container {
-  display: 
+  display: flex;
+  
+}
+
+.search-div {
+  background-color: pink;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 0px 20px 20px 0px;
+}
+
+.search-by-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-by {
+  margin-right: 10px;
 }
