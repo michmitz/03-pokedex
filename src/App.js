@@ -30,7 +30,7 @@ export default class App extends Component {
                             render={(routerProps) => <SearchPage {...routerProps} />} 
                         />
                         <Route 
-                            path="/detail/:myPokemonId" 
+                            path="/detail/:myPokemonName" 
                             exact
                             render={(routerProps) => <DetailPage {...routerProps} />} 
                         />
