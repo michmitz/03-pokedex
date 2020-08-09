@@ -3,13 +3,21 @@ import './App.css'
 
 export default class SearchBar extends Component {
     render() {
+        const {
+            handleChange,
+            handleClick,
+            search,
+            searchBy,
+            handleSearchBy
+        } = this.props;
+
         return (
             <div className="search-div">
-                <input onChange={this.props.handleChange}/>
+                <input onChange={handleChange} value={search}/>
                 
                 <div className="search-by-div">
                 <p className="search-by">Search By:</p>
-                <select onChange={this.props.handleSearchBy}>
+                <select onChange={handleSearchBy} value={searchBy}>
                     <option value='pokemon'>name</option>
                     <option value='type'>type</option>
                     <option value='attack'>attack</option>
@@ -17,7 +25,7 @@ export default class SearchBar extends Component {
                 </select>
                 </div>
 
-                <button onClick={this.props.handleClick}>Search</button>
+                <button onClick={handleClick}>Search</button>
             </div>
         )
     }

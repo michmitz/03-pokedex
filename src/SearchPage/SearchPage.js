@@ -11,22 +11,71 @@ class SearchPage extends React.Component {
     search: '',
     pokeState: [],
     searchBy: 'pokemon',
-    isLoading: false
+    isLoading: false,
+    currentPage: 1,
+    totalPages: 1
   }
 
-  handleClick = async () => {
+  componentDidMount = async () => {
+    const params = new
+    URLSearchParams(this.props.location.search);
+
+    const searchBy = params.get('searchBy');
+    const page = params.get('page');
+    const search = params.get('search');
+
+    console.log('searchBy, page, search', searchBy, page, search)
+
+    if (searchBy && page && search)
+    await this.setState ({
+      searchBy: searchBy,
+      currentPage: page,
+      search: search
+    })
+
+    await this.makeRequest()
+  }
+
+  makeRequest = async () => {
     this.setState({
       isLoading: true 
     })
 
-    const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?perPage=1000&${this.state.searchBy}=${this.state.search}`)
+    const data = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?page=${this.state.currentPage}&perPage=20&${this.state.searchBy}=${this.state.search}`)
 
     this.setState({
       pokeState: data.body.results,
+      totalPages: Math.ceil(data.body.count / 20),
       isLoading: false
     })
 
+    const params = new URLSearchParams(this.props.location.search);
+
+    params.set('search', this.state.search);
+    params.set('searchBy', this.state.searchBy);
+    params.set('page', this.state.currentPage);
+
+
+    this.props.history.push('?' + params.toString())
+
     console.log(this.state.pokeState)
+
+  }
+
+  handleClick = async () => {
+    await this.makeRequest()
+  }
+
+  handleNextClick = async () => {
+    await this.setState({ currentPage: Number(this.state.currentPage) + 1 })
+
+    await this.makeRequest()
+  }
+
+  handlePrevClick = async () => {
+    await this.setState({ currentPage: Number(this.state.currentPage) - 1 })
+
+    await this.makeRequest()
   }
 
   handleChange = (e) => {
@@ -38,13 +87,22 @@ class SearchPage extends React.Component {
   }
 
   render() {
+    const {
+      isLoading,
+      pokeState,
+      currentPage,
+      totalPages,
+      search,
+      searchBy
+    } = this.state;
+
   return (
     <div className="search-container">
-        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy}/>
+        <SearchBar handleClick={this.handleClick} handleChange={this.handleChange} handleSearchBy={this.handleSearchBy} search={search} searchBy={searchBy}/>
         
         {
-        this.state.isLoading ? <p>Loading</p> :
-        <PokemonList pokeState={this.state.pokeState}/>
+        isLoading ? <p>Loading</p> :
+        <PokemonList handleNextClick={this.handleNextClick} handlePrevClick={this.handlePrevClick} currentPage={currentPage} pokeState={pokeState} totalPages={totalPages}/>
         }
 
     </div>
