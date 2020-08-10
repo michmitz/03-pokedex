@@ -24,7 +24,9 @@ export default class PokemonList extends Component {
                         currentPage !== totalPages &&
                         <button onClick={handleNextClick}>Next</button>
                         }
-                        {currentPage} of {totalPages}
+                        <div className="page-numbers">
+                        Page {currentPage} of {totalPages}
+                        </div>
                     </div>
                 }
                 

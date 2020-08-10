@@ -25,7 +25,7 @@ export default class SearchBar extends Component {
                 </select>
                 </div>
 
-                <button onClick={handleClick}>Search</button>
+                <button className="search-button" onClick={handleClick}>Search</button>
             </div>
         )
     }
