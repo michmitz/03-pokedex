@@ -20,10 +20,10 @@ export default class DetailPage extends Component {
         const { pokemon } = this.state;
 
         return (
-            <div className='pokemon-details-div'>
+            <div>
                 {
                     pokemon 
-                        ? <div>
+                        ? <div className='pokemon-details-div'>
                         <p>{pokemon.pokemon}</p>
                         <p>Defense: {pokemon.defense}</p>
                         <p>Attack: {pokemon.attack}</p>
